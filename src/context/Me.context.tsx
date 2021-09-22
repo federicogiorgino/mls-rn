@@ -1,46 +1,37 @@
 import React, { useEffect, useState, createContext, FC } from "react";
+import { Post } from "../@types/post";
 import { User } from "../@types/user";
 import api from "../api";
 
 type MeContextState = {
   me: User | null;
-  myFollowers: number | null;
-  myFollowing: number | null;
+  myPosts: Post[];
   loading: boolean;
   error: string;
   getMe: () => void;
-  getMyFollowers: (id: string) => void;
-  getMyFollowing: (id: string) => void;
+  getMyPosts: () => void;
 };
 
 const contextDefaultValue: MeContextState = {
   me: null,
-  myFollowers: null,
-  myFollowing: null,
+  myPosts: [],
   loading: false,
   error: "",
   getMe: () => {},
-  getMyFollowers: () => {},
-  getMyFollowing: () => {},
+  getMyPosts: () => {},
 };
 
 export const MeContext = createContext<MeContextState>(contextDefaultValue);
 
 export const MeContextProvider: FC = ({ children }) => {
-  const [me, setMe] = useState(contextDefaultValue.me);
-  const [myFollowers, setMyFollowers] = useState(
-    contextDefaultValue.myFollowers
-  );
-  const [myFollowing, setMyFollowing] = useState(
-    contextDefaultValue.myFollowing
-  );
-  const [loading, setLoading] = useState(contextDefaultValue.loading);
-  const [error, setError] = useState(contextDefaultValue.error);
+  const [me, setMe] = useState<User | null>(contextDefaultValue.me);
+  const [myPosts, setMyPosts] = useState(contextDefaultValue.myPosts);
+  const [loading, setLoading] = useState<boolean>(contextDefaultValue.loading);
+  const [error, setError] = useState<string>(contextDefaultValue.error);
 
   const getMe = async () => {
     setError("");
     setLoading(true);
-
     try {
       const response = await api.get(`/users/me`);
       setMe(response.data);
@@ -50,46 +41,35 @@ export const MeContextProvider: FC = ({ children }) => {
     setLoading(false);
   };
 
-  const getMyFollowers = async (id: string) => {
+  const getMyPosts = async () => {
     setError("");
     setLoading(true);
-
     try {
-      const response = await api.get(`/users/${id}/followers`);
-      setMyFollowers(response.data.length);
+      const response = await api.get(`/users/me/posts`);
+      setMyPosts(response.data);
     } catch (error) {
       setError("Something went wrong");
     }
     setLoading(false);
   };
 
-  const getMyFollowing = async (id: string) => {
-    setError("");
-    setLoading(true);
-
-    try {
-      const response = await api.get(`/users/${id}/following`);
-      setMyFollowing(response.data.length);
-    } catch (error) {
-      setError("Something went wrong");
-    }
-    setLoading(false);
-  };
   useEffect(() => {
     getMe();
+  }, []);
+
+  useEffect(() => {
+    getMyPosts();
   }, []);
 
   return (
     <MeContext.Provider
       value={{
         me,
-        myFollowers,
-        myFollowing,
+        myPosts,
         loading,
         error,
         getMe,
-        getMyFollowers,
-        getMyFollowing,
+        getMyPosts,
       }}
     >
       {children}

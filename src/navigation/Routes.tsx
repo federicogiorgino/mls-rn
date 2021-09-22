@@ -7,8 +7,11 @@ import { AuthStack } from "./Auth.stack";
 
 import { ThemeContext } from "../context/Theme.context";
 import { AuthContext } from "../context/Auth.context";
+
 import { MeContextProvider } from "../context/Me.context";
-import { MainDrawer } from "./Main.drawer";
+import { AdminContextProvider } from "../context/Admin.context";
+
+import { MainStack } from "./Main.stack";
 
 export const Routes: FC = () => {
   const { token } = useContext(AuthContext);
@@ -22,7 +25,9 @@ export const Routes: FC = () => {
             <AuthStack />
           ) : (
             <MeContextProvider>
-              <MainDrawer />
+              <AdminContextProvider>
+                <MainStack />
+              </AdminContextProvider>
             </MeContextProvider>
           )}
         </NavigationContainer>

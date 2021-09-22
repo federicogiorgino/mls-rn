@@ -1,13 +1,20 @@
+import { useNavigation } from "@react-navigation/core";
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
+import SafeArea from "../../../components/Layout/SafeArea";
 
 import { styles } from "./styles";
 
 const HomeScreen = () => {
+  const navigation: any = useNavigation();
+
   return (
-    <View>
-      <Text></Text>
-    </View>
+    <SafeArea>
+      <Button
+        title="Create Post"
+        onPress={() => navigation.navigate("CreatePostScreen")}
+      />
+    </SafeArea>
   );
 };
 

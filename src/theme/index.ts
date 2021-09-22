@@ -17,6 +17,7 @@ export const CustomDefaultTheme: ExtendedTheme = {
     background: "#FFFFFF",
     text: "#333333",
     primary: "#0EAD69",
+    surface: "#E1E1E1",
   },
 };
 
