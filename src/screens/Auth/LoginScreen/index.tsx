@@ -14,8 +14,8 @@ const LoginScreen: FC = () => {
   const { isDarkTheme } = useContext(ThemeContext);
   const { login, error } = useContext(AuthContext);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const buttonDisabled = !email || !password;
 
