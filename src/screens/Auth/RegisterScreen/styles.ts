@@ -9,12 +9,12 @@ export const styles = StyleSheet.create({
   button: {
     width: "100%",
     marginVertical: 10,
-    // borderRadius: 55,
   },
   buttonText: {
     fontWeight: "bold",
     fontSize: RFPercentage(2.2),
     lineHeight: 26,
+    color: "#000000",
   },
   errorText: {
     textAlign: "center",
