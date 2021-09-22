@@ -4,7 +4,7 @@ import { CustomDarkTheme, CustomDefaultTheme } from "../theme/index";
 
 type ThemeContextState = {
   isDarkTheme: boolean;
-  theme: ExtendedTheme;
+  theme: any;
   switchTheme: () => void;
 };
 
