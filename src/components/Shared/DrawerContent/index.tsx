@@ -27,10 +27,11 @@ import { MeContext } from "../../../context/Me.context";
 interface Props {}
 
 const DrawerContent: FC<Props> = (props) => {
-  const navigation: any = useNavigation();
   const isDrawerOpen = useDrawerStatus() === "open";
   const { logout } = useContext(AuthContext);
   const { isDarkTheme, switchTheme } = useContext(ThemeContext);
+
+  const navigation: any = useNavigation();
 
   const {
     me,
@@ -57,23 +58,28 @@ const DrawerContent: FC<Props> = (props) => {
       <DrawerContentScrollView {...props}>
         <View style={styles.drawerContent}>
           <View style={styles.userInfoSection}>
-            <View
-              style={{
-                flexDirection: "row",
-                marginTop: 15,
-                alignItems: "center",
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("ProfileScreen", { id: me?._id! });
               }}
             >
-              <Avatar.Image
-                source={{
-                  uri: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png",
+              <View
+                style={{
+                  flexDirection: "row",
+                  marginTop: 15,
+                  alignItems: "center",
                 }}
-                size={50}
-              />
+              >
+                <Avatar.Image
+                  source={{
+                    uri: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png",
+                  }}
+                  size={50}
+                />
 
-              <Title style={styles.title}>{me?.username}</Title>
-            </View>
-
+                <Title style={styles.title}>{me?.username}</Title>
+              </View>
+            </TouchableOpacity>
             <View style={styles.row}>
               <TouchableOpacity
                 style={styles.section}
@@ -103,7 +109,7 @@ const DrawerContent: FC<Props> = (props) => {
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
               icon={({ color, size }) => (
-                <Entypo name="home" size={24} color={color} />
+                <Entypo name="home" size={size} color={color} />
               )}
               label="Home"
               onPress={() => {
@@ -112,20 +118,20 @@ const DrawerContent: FC<Props> = (props) => {
             />
             <DrawerItem
               icon={({ color, size }) => (
-                <Entypo name="user" size={24} color={color} />
+                <Entypo name="user" size={size} color={color} />
               )}
               label="Profile"
               onPress={() => {
-                navigation.navigate("UserProfileScreen");
+                navigation.navigate("ProfileScreen");
               }}
             />
             <DrawerItem
               icon={({ color, size }) => (
-                <Entypo name="bookmarks" size={24} color={color} />
+                <Entypo name="bookmarks" size={size} color={color} />
               )}
               label="Bookmarks"
               onPress={() => {
-                navigation.navigate("UserBookmarksScreen");
+                navigation.navigate("BookmarksScreen");
               }}
             />
             {me?.admin && (
@@ -133,7 +139,7 @@ const DrawerContent: FC<Props> = (props) => {
                 icon={({ color, size }) => (
                   <MaterialIcons
                     name="admin-panel-settings"
-                    size={24}
+                    size={size}
                     color={color}
                   />
                 )}
