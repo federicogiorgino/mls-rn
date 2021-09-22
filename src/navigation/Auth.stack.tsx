@@ -29,7 +29,6 @@ export const AuthStack: FC<AuthStackProps> = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="LoginScreen"
     >
       <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
