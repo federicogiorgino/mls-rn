@@ -2,11 +2,11 @@ import { ExtendedTheme } from "@react-navigation/native";
 import React, { useState, createContext, FC } from "react";
 import { CustomDarkTheme, CustomDefaultTheme } from "../theme/index";
 
-type ThemeContextState = {
+interface ThemeContextState {
   isDarkTheme: boolean;
   theme: any;
   switchTheme: () => void;
-};
+}
 
 const contextDefaultValue: ThemeContextState = {
   isDarkTheme: true,
