@@ -1,8 +1,8 @@
-import { RouteProp } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-
 import React, { FC } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+
+import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 import WelcomeScreen from "../screens/Auth/WelcomeScreen";
 import LoginScreen from "../screens/Auth/LoginScreen";

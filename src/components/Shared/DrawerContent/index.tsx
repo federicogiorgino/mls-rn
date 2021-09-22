@@ -16,21 +16,41 @@ import {
   DrawerItem,
   useDrawerStatus,
 } from "@react-navigation/drawer";
-import { Entypo, FontAwesome } from "@expo/vector-icons";
+import { Entypo, FontAwesome, MaterialIcons } from "@expo/vector-icons";
 
 import { AuthContext } from "../../../context/Auth.context";
 import { ThemeContext } from "../../../context/Theme.context";
 
 import { styles } from "./styles";
+import { MeContext } from "../../../context/Me.context";
 
 interface Props {}
 
 const DrawerContent: FC<Props> = (props) => {
   const navigation: any = useNavigation();
   const isDrawerOpen = useDrawerStatus() === "open";
-
   const { logout } = useContext(AuthContext);
   const { isDarkTheme, switchTheme } = useContext(ThemeContext);
+
+  const {
+    me,
+    loading,
+    error,
+    getMyFollowing,
+    getMyFollowers,
+    myFollowing,
+    myFollowers,
+  } = useContext(MeContext);
+
+  useEffect(() => {
+    getMyFollowing(me?._id!);
+  }, [isDrawerOpen]);
+
+  useEffect(() => {
+    getMyFollowers(me?._id!);
+  }, [isDrawerOpen]);
+
+  // if (loading) return <View style={{ flex: 1, backgroundColor: "red" }} />;
 
   return (
     <View style={{ flex: 1 }}>
@@ -51,7 +71,7 @@ const DrawerContent: FC<Props> = (props) => {
                 size={50}
               />
 
-              <Title style={styles.title}>Federico Giorgino </Title>
+              <Title style={styles.title}>{me?.username}</Title>
             </View>
 
             <View style={styles.row}>
@@ -62,9 +82,9 @@ const DrawerContent: FC<Props> = (props) => {
                 }}
               >
                 <Paragraph style={[styles.paragraph, styles.caption]}>
-                  1{" "}
+                  {myFollowers}
                 </Paragraph>
-                <Caption style={styles.caption}>Followers</Caption>
+                <Caption style={styles.caption}> Followers</Caption>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.section}
@@ -73,9 +93,9 @@ const DrawerContent: FC<Props> = (props) => {
                 }}
               >
                 <Paragraph style={[styles.paragraph, styles.caption]}>
-                  323
+                  {myFollowing}
                 </Paragraph>
-                <Caption style={styles.caption}>Following</Caption>
+                <Caption style={styles.caption}> Following</Caption>
               </TouchableOpacity>
             </View>
           </View>
@@ -108,6 +128,21 @@ const DrawerContent: FC<Props> = (props) => {
                 navigation.navigate("UserBookmarksScreen");
               }}
             />
+            {me?.admin && (
+              <DrawerItem
+                icon={({ color, size }) => (
+                  <MaterialIcons
+                    name="admin-panel-settings"
+                    size={24}
+                    color={color}
+                  />
+                )}
+                label="Admin"
+                onPress={() => {
+                  navigation.navigate("AdminScreen");
+                }}
+              />
+            )}
           </Drawer.Section>
           <Drawer.Section title="Preferences">
             <TouchableRipple

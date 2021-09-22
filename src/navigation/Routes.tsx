@@ -7,7 +7,7 @@ import { AuthStack } from "./Auth.stack";
 
 import { ThemeContext } from "../context/Theme.context";
 import { AuthContext } from "../context/Auth.context";
-import { MainStack } from "./Main.stack";
+import { MeContextProvider } from "../context/Me.context";
 import { MainDrawer } from "./Main.drawer";
 
 export const Routes: FC = () => {
@@ -18,7 +18,13 @@ export const Routes: FC = () => {
     <>
       <PaperProvider theme={theme}>
         <NavigationContainer theme={theme}>
-          {!token ? <AuthStack /> : <MainDrawer />}
+          {!token ? (
+            <AuthStack />
+          ) : (
+            <MeContextProvider>
+              <MainDrawer />
+            </MeContextProvider>
+          )}
         </NavigationContainer>
       </PaperProvider>
       <ExpoStatusBar style={isDarkTheme ? "light" : "dark"} />
