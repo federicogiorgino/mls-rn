@@ -21,4 +21,5 @@ export const styles = StyleSheet.create({
   followerCardValue: { fontSize: RFPercentage(2) },
   profilePic: { width: 150, height: 150, borderRadius: 99, marginBottom: 20 },
   usernameText: { fontWeight: "bold", fontSize: RFPercentage(4) },
+  logoutIcon: { position: "absolute", top: 30, right: 30 },
 });

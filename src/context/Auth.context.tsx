@@ -14,7 +14,7 @@ type RegisterCredentials = {
   password: string;
 };
 
-type AuthContextState = {
+interface AuthContextState {
   token: string | null;
   loading: boolean;
   tokenLoading: boolean;
@@ -23,7 +23,7 @@ type AuthContextState = {
   register: (credentials: RegisterCredentials) => void;
   logout: () => void;
   clearError: () => void;
-};
+}
 
 const contextDefaultValue: AuthContextState = {
   token: null,

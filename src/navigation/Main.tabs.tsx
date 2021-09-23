@@ -8,12 +8,13 @@ import {
   Entypo,
   MaterialCommunityIcons,
   FontAwesome5,
+  AntDesign,
 } from "@expo/vector-icons";
 
 import HomeScreen from "../screens/Main/HomeScreen";
 import AdminScreen from "../screens/Admin/AdminScreen";
 import MyProfileScreen from "../screens/Main/MyProfileScreen";
-// import SearchScreen from "../screens/Main/SearchScreen";
+import BookmarksScreen from "../screens/Main/BookmarksScreen";
 
 import { MeContext } from "../context/Me.context";
 import { useTheme } from "@react-navigation/native";
@@ -23,6 +24,7 @@ export type MainTabsParams = {
   AdminScreen: undefined;
   SearchScreen: undefined;
   MyProfileScreen: undefined;
+  BookmarksScreen: undefined;
 };
 
 export type MainTabsNavProps<T extends keyof MainTabsParams> = {
@@ -54,7 +56,7 @@ export const MainTabs: FC<MainTabsProps> = () => {
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <Entypo name="home" size={30} color={color} />
+            <Entypo name="home" size={26} color={color} />
           ),
         }}
       />
@@ -73,15 +75,15 @@ export const MainTabs: FC<MainTabsProps> = () => {
           }}
         />
       )}
-      {/* <Tabs.Screen
-        name="SearchScreen"
-        component={SearchScreen}
+      <Tabs.Screen
+        name="BookmarksScreen"
+        component={BookmarksScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="search" size={24} color={color} />
+            <AntDesign name={"star"} size={24} color={color} />
           ),
         }}
-      /> */}
+      />
       <Tabs.Screen
         name="MyProfileScreen"
         component={MyProfileScreen}

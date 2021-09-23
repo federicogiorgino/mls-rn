@@ -3,14 +3,14 @@ import React, { useState, createContext, FC } from "react";
 import { Post } from "../@types/post";
 import api from "../api";
 
-type AdminContextState = {
+interface AdminContextState {
   unmoderatedPosts: Post[];
   loading: boolean;
   error: string;
   getUnmoderatedPosts: () => void;
   rejectPost: (id: string) => void;
   approvePost: (id: string) => void;
-};
+}
 
 const contextDefaultValue: AdminContextState = {
   unmoderatedPosts: [],

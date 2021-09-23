@@ -12,7 +12,7 @@ const HomeScreen = () => {
     <SafeArea>
       <Button
         title="Create Post"
-        onPress={() => navigation.navigate("CreatePostScreen")}
+        onPress={() => navigation.push("CreatePostScreen")}
       />
     </SafeArea>
   );
